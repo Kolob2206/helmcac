@@ -1,0 +1,27 @@
+step "Deploy Helm" {
+    properties = {
+        Octopus.Action.TargetRoles = "cloud"
+    }
+
+    action {
+        properties = {
+            Octopus.Action.Package.FeedId = "Helm 1"
+            Octopus.Action.Package.PackageId = "drone"
+            Octopus.Action.Template.Id = "ActionTemplates-1135"
+            Octopus.Action.Template.Version = "4"
+            pack = "{\"PackageId\":\"drone\",\"FeedId\":\"Helm 1\"}"
+        }
+        worker_pool_variable = ""
+
+        packages {
+            acquisition_location = "Server"
+            feed = "Helm 1"
+            package_id = "drone"
+            properties = {
+                PackageParameterName = "pack"
+                SelectionMode = "deferred"
+                ValuesFilePath = ""
+            }
+        }
+    }
+}
